@@ -19,7 +19,7 @@ npm ci
 3.
 
 ```bash
-npm run build:docke
+npm run build:docker
 ```
 
 4.
