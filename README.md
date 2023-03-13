@@ -68,7 +68,3 @@ or
 ```
 
 the hosting errors are reversed: the favicons will be hosted from `/mynamespace` - but the script file is hosted from `/static`
-
-```js
-
-```
