@@ -9,7 +9,9 @@
     "start": "sanity start",
     "build": "sanity build",
     "deploy": "sanity deploy",
-    "deploy-graphql": "sanity graphql deploy"
+    "deploy-graphql": "sanity graphql deploy",
+    "build:docker": "DOCKER_BUILDKIT=1 docker build --secret id=npmrc,src=$HOME/.npmrc . -t sanitypathtest --build-arg NO_MINIFY=1 --build-arg NODE_VERSION=18",
+    "start:docker": "docker run -p 3333:9306 sanitypathtest"
   },
   "keywords": [
     "sanity"
