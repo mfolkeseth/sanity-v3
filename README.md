@@ -2,29 +2,73 @@
 
 Trying to set up expected `basePath` to work across Sanity v3 instance.
 
-## Setup 
+## Setup
 
-1. 
+1.
+
 ```bash
 cd sanitypathtest
 ```
 
-2. 
+2.
+
 ```bash
-npm i
+npm ci
 ```
 
-3. 
+3.
+
 ```bash
-npm run build
+npm run build:docke
 ```
 
-4. Host some kind of independent http server which has `/dist` as root. I have used `http-server dist` for this test.
+4.
 
-5. Open independent http server in browser
+```bash
+npm run start:docker
+```
 
-6. Experience unexpected static path
+5. open http://localhost:3333/mynamespace/desk/
 
-<img width="644" alt="image" src="https://user-images.githubusercontent.com/7047431/224268816-12093d96-cf6a-43ed-b849-e694f31204f3.png">
+I don't have access to the project/dataset, but after logging in I get the following results in my network tab
 
+<img width="540" alt="image" src="https://user-images.githubusercontent.com/1043634/224470987-2540872f-f5cd-42bd-b6ec-94633ab1fe56.png">
 
+This is due to the fact that all favicons are referenced to a `/static` basepath - which is not available when the app is running behind a reverse proxy (ie. the frontend doesn't have access to files hosted on `/static/` - only `/mynamespace`
+
+<img width="622" alt="image" src="https://user-images.githubusercontent.com/1043634/224471043-75bf4e7b-7976-41dc-b0ad-f8483a99104f.png">
+
+The app itself on the other hand (.js) is available on the path - as instructed to vite
+
+<img width="527" alt="image" src="https://user-images.githubusercontent.com/1043634/224471067-7afe027c-1494-4b49-8f3b-1aa4f1594e86.png">
+
+If we change the cli config either as such
+
+```js
+  project: {
+    basePath: '/mynamespace',
+  },
+```
+
+or
+
+```js
+  project: {
+    basePath: '/mynamespace',
+  },
+  vite: (prevConfig) => {
+    return {
+      ...prevConfig,
+      build: {
+        ...prevConfig.build,
+        assetsDir: 'mynamespace',
+      },
+    };
+  },
+```
+
+the hosting errors are reversed: the favicons will be hosted from `/mynamespace` - but the script file is hosted from `/static`
+
+```js
+
+```
