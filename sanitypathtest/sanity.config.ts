@@ -11,7 +11,6 @@ export default defineConfig({
   dataset: 'production',
 
   plugins: [deskTool(), visionTool()],
-  basePath: '/mynamespace',
 
   schema: {
     types: schemaTypes,

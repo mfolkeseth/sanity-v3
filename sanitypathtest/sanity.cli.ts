@@ -5,7 +5,7 @@ export default defineCliConfig({
     projectId: 'emt9r934',
     dataset: 'production',
   },
-  vite: (prevConfig) => {
-    return {...prevConfig, build: {...prevConfig.build, assetsDir: 'mynamespace'}}
+  project: {
+    basePath: '/sanitypathtest',
   },
 })
